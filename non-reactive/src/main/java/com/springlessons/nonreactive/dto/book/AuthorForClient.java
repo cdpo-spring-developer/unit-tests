@@ -1,2 +1,4 @@
-package com.springlessons.nonreactive.dto.book;public class AuthorForClient {
+package com.springlessons.nonreactive.dto.book;
+
+public record AuthorForClient(int id, String name, String photoUrl) {
 }
