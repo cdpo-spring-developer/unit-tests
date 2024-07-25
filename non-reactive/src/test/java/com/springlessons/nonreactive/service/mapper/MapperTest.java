@@ -3,6 +3,7 @@ package com.springlessons.nonreactive.service.mapper;
 import com.springlessons.nonreactive.dto.author.Attachment;
 import com.springlessons.nonreactive.dto.author.AuthorFromOtherService;
 import com.springlessons.nonreactive.dto.book.AuthorForClient;
+import com.springlessons.nonreactive.entity.Book;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,36 @@ public class MapperTest {
     @BeforeEach
     void init(){
         mapper = new Mapper();
+    }
+
+    void mapBook_ThrowsRuntimeException_NullParameters(){
+        Assertions.assertThrows(
+                RuntimeException.class,
+                ()->mapper.mapBook(null, new AuthorForClient(1,"",""))
+        );
+        Assertions.assertThrows(
+                RuntimeException.class,
+                ()->mapper.mapBook(new Book(), null)
+        );
+        Assertions.assertThrows(
+                RuntimeException.class,
+                ()->mapper.mapBook(null, null)
+        );
+    }
+
+    @Test
+    void mapBook_ThrowsRuntimeException_NullBook(){
+        Assertions.assertThrows(
+                RuntimeException.class,
+                ()->mapper.mapBook(null, new AuthorForClient(1,"",""))
+        );
+    }
+
+    void mapBook_ThrowsRuntimeException_NullAuthor(){
+        Assertions.assertThrows(
+                RuntimeException.class,
+                ()->mapper.mapBook(new Book(), null)
+        );
     }
 
     // public AuthorForClient mapAuthor(AuthorFromOtherService authorFromOtherService)

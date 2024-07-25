@@ -1,5 +1,6 @@
 package com.springlessons.nonreactive.service;
 
+import com.springlessons.nonreactive.dto.author.AuthorFromOtherService;
 import com.springlessons.nonreactive.dto.book.AuthorForClient;
 import com.springlessons.nonreactive.dto.book.BookForClient;
 import com.springlessons.nonreactive.entity.Book;
@@ -20,13 +21,19 @@ public class BookService {
         this.authorClient = authorClient;
     }
 
-    public BookForClient getBookById(int id) {
+    public int getBookById(int id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
-        AuthorForClient authorForClient = mapper.mapAuthor(
-                authorClient.getAuthorById(
-                        book.getAuthorId()));
-        return mapper.mapBook(book, authorForClient);
+
+        AuthorFromOtherService authorFromOtherService =
+                authorClient.getAuthorById(book.getAuthorId());
+
+        // TODO: test sum and private methods
+        return 3 + sum(book.getId(), authorFromOtherService.id());
+    }
+
+    private int sum(int id1, int id2) {
+        return id1 + id2;
     }
 }
 

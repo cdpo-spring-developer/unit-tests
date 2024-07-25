@@ -12,8 +12,14 @@ public class AuthorClient {
         this.restClient = restClient;
     }
 
+    // List<Book>
+    // Optional<Book>
+    // Book<Integer>
+
     public AuthorFromOtherService getAuthorById(int id) {
-        return restClient.get().uri("/author/{id}", id)
+        return restClient.get()
+               // .header("", "")
+                .uri("/author/{id}", id)
                 .retrieve()
                 .body(AuthorFromOtherService.class);
     }
